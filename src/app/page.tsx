@@ -17,7 +17,7 @@ async function getData() {
  
 
 export default async function Home() {
-  const productData: Promise<ProductResult> = getProductResults();
+  const productData: Promise<ProductProps> = getProductResults();
 
   const data = await productData;
 
@@ -25,7 +25,9 @@ export default async function Home() {
     <main className="py-10 bg-gray-300">
       <div className="max-w-screen-2xl mx-auto">
         <Banner />
-        <Products /> 
+        <div className="relative md:-mt020 lgl:-mt-32 xl:-mt-60 z-20 mb-10">
+          <Products productData={data}/> 
+        </div>
       </div>
     </main>
   )
