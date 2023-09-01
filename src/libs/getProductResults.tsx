@@ -1,7 +1,9 @@
+import { base_url } from '@/config/constants';
 
 export default async function getProductResults() {
-  //const response = await fetch('https://en.wikipedia.org/w/api.php?' + searchParams);
 
-  //return response.json();
+  const response = await fetch(base_url + '/api/products');
+
+  return response.json();
 
 }

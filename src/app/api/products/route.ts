@@ -2,7 +2,6 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/libs/dbConnect';
 import Product from '@/models/Product';
-import User from '@/models/User'
 
 type ResponseData = {
   message: string
