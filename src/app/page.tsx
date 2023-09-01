@@ -16,9 +16,13 @@ async function getData() {
  
 
 export default async function Home() {
+  const productData: Promise<ProductProps> = getProductResults();
+
+  const data = await productData;
+
   return (
     <main className="py-10 bg-gray-300">
-      <HomeClientPagetsx />
+      <HomeClientPagetsx productData={data}/>
     </main>
   )
 }

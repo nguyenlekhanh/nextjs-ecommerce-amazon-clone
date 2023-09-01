@@ -4,6 +4,8 @@ import React, { memo } from 'react'
 import FormattedPrice from './FormattedPrice'
 import { HiShoppingCart } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
+import { useDispatch } from 'react-redux';
+import { addToCart } from '@/app/store/nextSlice';
 
 const ProductItem = ({
   _id,
@@ -16,8 +18,10 @@ const ProductItem = ({
   oldPrice,
   price,
 }: ProductProps) => {
+  const dispatch = useDispatch();
   return (
     <div
+      key={_id}
       className="w-full bg-white text-black p-4 border border-gray-300 rounded-lg group overflow-hidden"
     >
       <div className="w-full h-[260px] relative">
@@ -84,7 +88,22 @@ const ProductItem = ({
           {description.substring(0, 120)}
         </p>
         <button
-          
+          onClick={() =>
+            dispatch(
+              addToCart({
+                _id: _id,
+                brand: brand,
+                category: category,
+                description: description,
+                image: image,
+                isNew: isNew,
+                oldPrice: oldPrice,
+                price: price,
+                title: title,
+                quantity: 1,
+              })
+            )
+          }
           className="h-10 font-medium bg-amazon_blue text-white rounded-md hover:bg-amazon_yellow hover:text-black duration-300 mt-2"
         >
           add to cart

@@ -1,8 +1,4 @@
-interface Props {
-  amount: number;
-}
-
-const FormattedPrice = ({ amount }: Props) => {
+const FormattedPrice = ({ amount }: PriceProps) => {
   const formattedAmount = new Number(amount).toLocaleString("en-US", {
     style: "currency",
     currency: "USD",

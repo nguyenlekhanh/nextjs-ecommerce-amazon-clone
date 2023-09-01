@@ -4,7 +4,7 @@ import React from 'react'
 import ProductItem from './ProductItem';
 
 type ItemProps = {
-  productData: ProductProps
+  productData: ProductProps[]
 }
 
 const Products = ({ productData }: ItemProps) => {
@@ -21,6 +21,7 @@ const Products = ({ productData }: ItemProps) => {
           oldPrice,
           price,
         }: ProductProps) => (
+          <>
           <ProductItem 
             key={_id}
             _id={_id}
@@ -33,6 +34,7 @@ const Products = ({ productData }: ItemProps) => {
             oldPrice={oldPrice}
             price={price}
           />
+          </>
       ))}
     </div>
   )

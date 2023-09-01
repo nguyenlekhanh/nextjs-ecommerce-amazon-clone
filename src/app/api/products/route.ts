@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import dbConnect from '@/libs/dbConnect';
 import Product from '@/models/Product';
+import { removeDecimal128 } from '@/libs/dataLib';
 
 type ResponseData = {
   message: string
@@ -267,10 +268,30 @@ export async function GET(req: Request) {
   // })
   
   try {
-    //TODO make only 5 request / minutes for not making DDOS
     const data = await Product.find({});
-    return NextResponse.json(data);
+    
+    const dataRemoveDecimal128 = removeDecimal128(data);
+
+    // console.log('abc134');
+    // console.log(returnThisObject);
+    
+    // //TODO make only 5 request / minutes for not making DDOS
+    // const data = await Product.find({});
+    //console.log(data);
+    return NextResponse.json(dataRemoveDecimal128);
+
+    // Product.findOne().then(p => {
+    //   console.log(p.toJSON());
+    //   // { _id: 5b0e8059f17b64c477e5b171, price: '123', __v: 0 }
+    //   return NextResponse.json({ message: 'Internal server error' })
+    // })
+    // .catch(e => {
+    //   console.log(e);
+    //   return NextResponse.json({ message: 'Internal server error' })
+    // });
+    // return NextResponse.json({ message: 'Internal server error' })
   } catch (err) {
+    console.log(err);
     return NextResponse.json({ message: 'Internal server error' })
   }
 }
