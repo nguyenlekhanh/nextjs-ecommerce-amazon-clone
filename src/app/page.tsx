@@ -1,4 +1,4 @@
-import HomeClientPagetsx from '@/components/HomeClientPage';
+import HomeClientPage from '@/components/HomeClientPage';
 import getProductResults from '@/libs/getProductResults';
 
 async function getData() {
@@ -22,7 +22,7 @@ export default async function Home() {
 
   return (
     <main className="py-10 bg-gray-300">
-      <HomeClientPagetsx productData={data}/>
+      <HomeClientPage productData={data}/>
     </main>
   )
 }

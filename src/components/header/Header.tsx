@@ -1,4 +1,6 @@
-import React from "react";
+'use client';
+
+import React, { useEffect, useState } from "react";
 import logo from "@/images/logo.png";
 import cartIcon from "@/images/cartIcon.png";
 import Image from "next/image";
@@ -6,8 +8,21 @@ import { SlLocationPin } from "react-icons/sl";
 import { HiOutlineSearch } from "react-icons/hi";
 import { BiCaretDown } from "react-icons/bi";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const {productData, favoriteData} = useSelector((state:StateProps) => state.next);
+  const [productDataState, setProductDataState] = useState<any>();
+  const [favoriteDataState, setFavoriteDataState] = useState<any>();
+
+  useEffect(() => {
+    //we need to do that because nextjs will jell client/server for getting data from react redux
+    //Error: async/await is not yet supported in Client Components, only Server Components.
+    setProductDataState(productData);
+    setFavoriteDataState(favoriteData);
+  }, [productData, favoriteData]);
+
+  console.log(productData);
   return (
     <div className="w-full h-20 bg-amazon_blue text-lightText sticky top-0 z-50">
       <div className="h-full w-full mx-auto inline-flex items-center justify-between gap-1 mdl:gap-3 px-4">
@@ -70,10 +85,15 @@ const Header = () => {
         <div
           className="text-gray-100 flex flex-col justify-center px-2
               border border-transparent hover:border-white cursor-pointer duration-300
-              h-[70%]"
+              h-[70%] relative"
         >
           <p>Marked</p>
           <p className="text-white font-bold">& Favorite</p>
+          {favoriteDataState && favoriteDataState.length > 0 && (
+            <span className="absolute right-2 top-2 w-4 h-4 border-[1px] border-gray-400 flex items-center justify-center text-xs text-amazon_yellow">
+              {favoriteDataState.length}
+            </span>
+          )}
         </div>
 
         {/* car */}
@@ -89,7 +109,7 @@ const Header = () => {
           <span 
             className="absolute text-amazon_yellow text-sm top-2 left-[29px] font-semibold"
           >
-            0
+            {productDataState ? productDataState.length : 0}
           </span>
         </Link>
       </div>

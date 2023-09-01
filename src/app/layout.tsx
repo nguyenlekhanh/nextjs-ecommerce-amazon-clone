@@ -1,8 +1,8 @@
-import Header from '@/components/header/Header'
 import './globals.css'
 import type { Metadata } from 'next'
 import BottomHeader from '@/components/header/BottomHeader'
 import Footer from '@/components/Footer'
+import HeaderContainer from '@/components/header/HeaderContainer'
 
 
 export const metadata: Metadata = {
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-bodyFont">
-        <Header />
+        <HeaderContainer />
         <BottomHeader />
         {children}
         <Footer />
