@@ -9,17 +9,10 @@ import CartPayment from './CartPayment';
 
 const Carts = () => {
   const {productData} = useSelector((state:StateProps) => state.next);
-  const [productDataState, setProductDataState] = useState<StoreProduct[]>();
-
-  useEffect(() => {
-    //we need to do that because nextjs will jell client/server for getting data from react redux
-    //Hydration failed because the initial UI does not match what was rendered on the server.
-    setProductDataState(productData);
-  }, [productData]);
 
   return (
     <div className="max-w-screen-2xl mx-auto px-6 grid grid-cols-5 gap-10 py-4">
-      {productDataState && productDataState.length > 0 ? (
+      {productData && productData.length > 0 ? (
         <>
           <div className="bg-white col-span-4 p-4 rounded-lg">
             <div className="flex items-center justify-between border-b-[1px] border-b-gray-400 pb-1">
@@ -29,7 +22,7 @@ const Carts = () => {
               <p className="text-lg font-semibold text-amazon_blue">Subtitle</p>
             </div>
             <div className="pt-2 flex flex-col gap-2">
-              {productDataState.map((item: StoreProduct) => {
+              {productData.map((item: StoreProduct) => {
                 const uniqueID = item._id;
                 return (
                   <div key={uniqueID}>

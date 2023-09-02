@@ -7,17 +7,10 @@ import FavoriteProduct from "./FavoriteProduct";
 
 const FavoritePage = () => {
   const { favoriteData } = useSelector((state: StateProps) => state.next);
-  const [favoriteDataState, setFavoriteDataState] = useState<StoreProduct[]>();
-
-  useEffect(() => {
-    //we need to do that because nextjs will jell client/server for getting data from react redux
-    //Hydration failed because the initial UI does not match what was rendered on the server.
-    setFavoriteDataState(favoriteData);
-  }, [favoriteData]);
 
   return (
     <div className="max-w-screen-xl mx-auto px-6 gap-10 py-4">
-      {favoriteDataState && favoriteDataState.length > 0 ? (
+      {favoriteData && favoriteData.length > 0 ? (
         <div className="bg-white p-4 rounded-lg">
           <div className="flex items-center justify-between border-b-[1px] border-b-gray-400 pb-1">
             <p className="text-2xl font-semibold text-amazon_blue">
@@ -26,7 +19,7 @@ const FavoritePage = () => {
             <p className="text-lg font-semibold text-amazon_blue">Action</p>
           </div>
           <div>
-            {favoriteDataState.map((item: StoreProduct) => (
+            {favoriteData.map((item: StoreProduct) => (
               <div key={item._id} className="mt-2">
                 <FavoriteProduct item={item} />
               </div>

@@ -12,7 +12,7 @@ type ItemProps = {
   productData: ProductProps[]
 }
 
-const HomeClientPage = async ({productData} : ItemProps) => {
+const HomeClientPage = ({productData} : ItemProps) => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor} loading={null}>

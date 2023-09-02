@@ -21,8 +21,6 @@ const ProductItem = () => {
   useEffect(() => {
     const params = convertURLSearchParamsToObject(searchParams);
     setProduct(params);
-    console.log(product);
-
   }, [searchParams]);
 
   return (

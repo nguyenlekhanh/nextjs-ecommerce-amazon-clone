@@ -9,13 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 const BottomHeader = () => {
   const dispatch = useDispatch();
   const { userInfo } = useSelector((state: StateProps) => state.next);
-  const [userInfoState, setUserInfoState] = useState<UserInfoProps[]>();
-
-  useEffect(() => {
-    //we need to do that because nextjs will jell client/server for getting data from react redux
-    //Error: async/await is not yet supported in Client Components, only Server Components.
-    setUserInfoState(userInfo);
-  }, [userInfo]);
 
   const handleSignOut = () => {
     signOut();
@@ -42,7 +35,7 @@ const BottomHeader = () => {
       <p className="hidden md:inline-flex items-center h-8 px-2 border border-transparent hover:border-white cursor-pointer duration-300">
         Sell
       </p>
-      {userInfoState && (
+      {userInfo && (
         <button
           onClick={handleSignOut}
           className="hidden md:inline-flex items-center h-8 px-2 border border-transparent hover:border-red-600 hover:text-red-400 text-amazon_yellow cursor-pointer duration-300"
