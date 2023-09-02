@@ -4,10 +4,14 @@ import { Provider } from 'react-redux'
 import { store } from '@/app/store/store'
 import ProductItem from './ProductItem';
 
-const ProductContainer = () => {
+type itemProps = {
+  product: ProductProps
+}
+
+const ProductContainer = ({product} : itemProps) => {
   return (
     <Provider store={store}>
-      <ProductItem />
+      <ProductItem productParam={product}/>
     </Provider>
   )
 }

@@ -11,17 +11,21 @@ import { useDispatch } from "react-redux";
 import { BeatLoader } from "react-spinners";
 import { convertURLSearchParamsToObject } from "@/libs/dataLib";
 
-const ProductItem = () => {
-  const [product, setProduct] = useState<any>({});
+type itemProps = {
+  productParam: ProductProps
+}
+
+const ProductItem = ({productParam} : itemProps) => {
+  const [product, setProduct] = useState<ProductProps>(productParam);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const params = convertURLSearchParamsToObject(searchParams);
-    setProduct(params);
-  }, [searchParams]);
+  // useEffect(() => {
+  //   //const params = convertURLSearchParamsToObject(searchParams);
+  //   //setProduct(params);
+  // }, [searchParams]);
 
   return (
     <div className="max-w-screen-xl mx-auto px-4 py-4 md:py-10">

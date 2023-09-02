@@ -18,8 +18,19 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const {productData, favoriteData, userInfo} = useSelector((state:StateProps) => state.next);
+  const [productDataState, setProductDataState] = useState<ProductProps>();
+  const [favoriteDataState, setFavoriteDataState] = useState<ProductProps>();
 
   const { data: session } = useSession();
+
+  useEffect(() => {
+    // Error: Text content does not match server-rendered HTML.
+    // Warning: Text content did not match. Server: "0" Client: "4"
+    // See more info here: https://nextjs.org/docs/messages/react-hydration-error
+    // because we use localstorage from store in Header.tsx so we need to use this way or use useEffect inside Header.tsx
+    setProductDataState(productData);
+    setFavoriteDataState(favoriteData);
+  }, [productData, favoriteData]);
 
   useEffect(() => {
     if (session) {
@@ -117,8 +128,9 @@ const Header = () => {
         >
           <p>Marked</p>
           <p className="text-white font-bold">& Favorite</p>
-          <span className="absolute right-2 top-2 w-4 h-4 border-[1px] border-gray-400 flex items-center justify-center text-xs text-amazon_yellow">
-             {favoriteData ? favoriteData.length : 0}
+          <span 
+            className="absolute right-2 top-2 w-4 h-4 border-[1px] border-gray-400 flex items-center justify-center text-xs text-amazon_yellow">
+             {favoriteDataState ? favoriteDataState.length : 0}
           </span>
         </div>
 
