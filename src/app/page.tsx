@@ -16,7 +16,7 @@ async function getData() {
  
 
 export default async function Home() {
-  const productData: Promise<ProductProps> = getProductResults();
+  const productData: Promise<ProductProps[]> = getProductResults();
 
   const data = await productData;
 

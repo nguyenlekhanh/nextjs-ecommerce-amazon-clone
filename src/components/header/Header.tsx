@@ -8,21 +8,47 @@ import { SlLocationPin } from "react-icons/sl";
 import { HiOutlineSearch } from "react-icons/hi";
 import { BiCaretDown } from "react-icons/bi";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { addUser } from "@/app/store/nextSlice";
+import { UserInfo } from "os";
 
 const Header = () => {
-  const {productData, favoriteData} = useSelector((state:StateProps) => state.next);
-  const [productDataState, setProductDataState] = useState<any>();
-  const [favoriteDataState, setFavoriteDataState] = useState<any>();
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  const {productData, favoriteData, userInfo} = useSelector((state:StateProps) => state.next);
+  const [productDataState, setProductDataState] = useState<StoreProduct[]>();
+  const [favoriteDataState, setFavoriteDataState] = useState<StoreProduct[]>();
+  const [userInfoState, setUserInfoState] = useState<UserInfoProps[]>();
+
+  const { data: session } = useSession();
 
   useEffect(() => {
     //we need to do that because nextjs will jell client/server for getting data from react redux
     //Error: async/await is not yet supported in Client Components, only Server Components.
     setProductDataState(productData);
     setFavoriteDataState(favoriteData);
-  }, [productData, favoriteData]);
+    setUserInfoState(userInfo);
+  }, [productData, favoriteData, userInfo]);
 
-  console.log(productData);
+  useEffect(() => {
+    if (session) {
+      dispatch(
+        addUser({
+          name: session?.user?.name,
+          email: session?.user?.email,
+          image: session?.user?.image,
+        })
+      );
+    }
+  }, [session]);
+
+  const signInHandler = () => {
+    router.push('/login');
+  };
+
   return (
     <div className="w-full h-20 bg-amazon_blue text-lightText sticky top-0 z-50">
       <div className="h-full w-full mx-auto inline-flex items-center justify-between gap-1 mdl:gap-3 px-4">
@@ -68,21 +94,35 @@ const Header = () => {
           </span>
         </div>
         {/* signin */}
-        <div
-          className="text-gray-100 flex flex-col justify-center px-2
-              border border-transparent hover:border-white cursor-pointer duration-300
-              h-[70%]"
-        >
-          <p>Hello, sign in</p>
-          <p className="text-white font-bold flex items-center">
-            Account & Lists{" "}
-            <span>
-              <BiCaretDown />
-            </span>
-          </p>
-        </div>
+        {userInfoState ? (
+          <div className="flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] gap-1">
+            <img
+              src={userInfoState.image}
+              alt="userImage"
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            <div className="text-xs text-gray-100 flex flex-col justify-between">
+              <p className="text-white font-bold">{userInfoState.name}</p>
+              <p>{userInfoState.email}</p>
+            </div>
+          </div>
+        ) : (
+          <div
+            onClick={() => signIn()}
+            className="text-xs text-gray-100 flex flex-col justify-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%]"
+          >
+            <p>Hello, sign in</p>
+            <p className="text-white font-bold flex items-center">
+              Account & Lists{" "}
+              <span>
+                <BiCaretDown />
+              </span>
+            </p>
+          </div>
+        )}
         {/* favorite */}
         <div
+          onClick={() => router.push('/favorite')}
           className="text-gray-100 flex flex-col justify-center px-2
               border border-transparent hover:border-white cursor-pointer duration-300
               h-[70%] relative"

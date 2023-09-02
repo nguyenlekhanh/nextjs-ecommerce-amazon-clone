@@ -27,7 +27,7 @@ const ProductItem = ({
       <div className="w-full h-[260px] relative">
         <Link
           href={{
-            pathname: `/${_id}`,
+            pathname: `/product/${_id}`,
             query: {
               _id: _id,
               brand: brand,

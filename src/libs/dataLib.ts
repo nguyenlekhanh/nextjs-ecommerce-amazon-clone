@@ -7,4 +7,8 @@ const removeDecimal128 = (data: any) => {
   });
 }
 
-export { removeDecimal128 }
+const convertURLSearchParamsToObject = (urlSearchParams: any) => {
+  return Object.fromEntries(urlSearchParams)
+}
+
+export { removeDecimal128, convertURLSearchParamsToObject }

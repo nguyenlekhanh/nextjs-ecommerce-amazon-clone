@@ -1,9 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import BottomHeader from '@/components/header/BottomHeader'
 import Footer from '@/components/Footer'
 import HeaderContainer from '@/components/header/HeaderContainer'
-
+import AuthProviders from '@/components/AuthProviders'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,10 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-bodyFont">
-        <HeaderContainer />
-        <BottomHeader />
-        {children}
-        <Footer />
+        <AuthProviders>
+          <HeaderContainer />
+          {children}
+          <Footer />
+        </AuthProviders>
       </body>
     </html>
   )

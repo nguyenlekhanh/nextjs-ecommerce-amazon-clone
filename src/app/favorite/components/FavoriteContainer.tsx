@@ -1,17 +1,15 @@
 'use client';
 import React from 'react'
-import Header from './Header'
 import { Provider } from 'react-redux'
 import { store } from '@/app/store/store'
-import BottomHeader from './BottomHeader';
+import FavoritePage from './FavoritePage';
 
-const HeaderContainer = () => {
+const FavoriteContainer = () => {
   return (
     <Provider store={store}>
-      <Header />
-      <BottomHeader />
+      <FavoritePage />
     </Provider>
   )
 }
 
-export default HeaderContainer
+export default FavoriteContainer

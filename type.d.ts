@@ -14,7 +14,7 @@ type PriceProps = {
   amount: number;
 }
 
-type StoreProduct {
+type StoreProduct = {
   brand: string;
   category: string;
   description: string;
@@ -27,7 +27,13 @@ type StoreProduct {
   quantity: number;
 }
 
-type StateProps {
+type UserInfoProps = {
+  image: null | string,
+  name: null | string,
+  email: null | string
+}
+
+type StateProps = {
   productData: [],
   favoriteData: [],
   userInfo: null | string,

@@ -20,10 +20,11 @@ const Products = ({ productData }: ItemProps) => {
           isNew,
           oldPrice,
           price,
-        }: ProductProps) => (
-          <>
+        }: ProductProps) => {
+          const uniqueKey = _id;
+        return (
           <ProductItem 
-            key={_id}
+            key={uniqueKey}
             _id={_id}
             title={title}
             brand={brand}
@@ -34,8 +35,7 @@ const Products = ({ productData }: ItemProps) => {
             oldPrice={oldPrice}
             price={price}
           />
-          </>
-      ))}
+      )})}
     </div>
   )
 }

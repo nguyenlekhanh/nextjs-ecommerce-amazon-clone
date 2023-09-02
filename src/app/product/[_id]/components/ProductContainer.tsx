@@ -1,17 +1,15 @@
 'use client';
 import React from 'react'
-import Header from './Header'
 import { Provider } from 'react-redux'
 import { store } from '@/app/store/store'
-import BottomHeader from './BottomHeader';
+import ProductItem from './ProductItem';
 
-const HeaderContainer = () => {
+const ProductContainer = () => {
   return (
     <Provider store={store}>
-      <Header />
-      <BottomHeader />
+      <ProductItem />
     </Provider>
   )
 }
 
-export default HeaderContainer
+export default ProductContainer
