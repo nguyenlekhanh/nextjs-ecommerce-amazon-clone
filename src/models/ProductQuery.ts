@@ -3,6 +3,8 @@ import Product from '@/models/Product';
 import dbConnect from '@/libs/dbConnect';
 
 const getProductById = async (_id: string) => {
+  //if we did not connect, it will return error below
+  //MongooseError - Operation `db.findOne()` buffering timed out after 10000ms
   await dbConnect();
 
   let product = null;

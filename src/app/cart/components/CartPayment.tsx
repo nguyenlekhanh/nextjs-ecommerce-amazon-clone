@@ -2,12 +2,16 @@ import { SiMediamarkt } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FormattedPrice from "@/components/FormattedPrice";
+import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "next-auth/react";
 
 const CartPayment = () => {
   const { productData, userInfo } = useSelector(
     (state: StateProps) => state.next
   );
+
   const [totalAmount, setTotalAmount] = useState(0);
+
   useEffect(() => {
     let amt = 0;
     productData.map((item: StoreProduct) => {
@@ -16,12 +20,49 @@ const CartPayment = () => {
     });
     setTotalAmount(amt);
   }, [productData]);
-  // Striep payment
 
+  // Striep payment
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  );
+
+  const { data: session } = useSession();
 
   const handleCheckout = async () => {
+    const stripe = await stripePromise;
 
+    //save temporary order to database and give the id to the checkout below
+    //if success return to success page and save temp order to actually db
+
+    // console.log(session);
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: productData, email: session?.user?.email,  }),
+    });
+    const checkoutSession = await response.json();
+
+    //save temporary stripe session id
+    const response1 = await fetch("/api/order/stripe_session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ session_id: checkoutSession.id, email: session?.user?.email,  }),
+    });
+
+    // Redirecting user/customer to Stripe Checkout
+    // const result: any = await stripe?.redirectToCheckout({
+    //   sessionId: checkoutSession.id,
+    // });
+
+    // if (result.error) {
+    //   alert(result?.error.message);
+    // }
   };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-2">

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { addUser } from "@/app/store/nextSlice";
+import { addUser, removeUser } from "@/app/store/nextSlice";
 
 const Header = () => {
   const router = useRouter();
@@ -40,6 +40,10 @@ const Header = () => {
           email: session?.user?.email,
           image: session?.user?.image,
         })
+      );
+    } else {
+      dispatch(
+        removeUser()
       );
     }
   }, [session]);
