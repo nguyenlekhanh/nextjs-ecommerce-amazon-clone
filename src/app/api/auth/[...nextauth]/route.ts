@@ -1,6 +1,10 @@
 import moment from "moment";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
+import prisma from '@/libs/prismadb'
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import bcrypt from 'bcrypt'
+import { signJwtAccessToken } from "@/libs/jwt";
 
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET as string;
 
@@ -8,6 +12,7 @@ const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET as string;
 //https://authjs.dev/guides/basics/refresh-token-rotation
 
 const handler = NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
