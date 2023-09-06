@@ -34,7 +34,6 @@ const CartPayment = () => {
     //save temporary order to database and give the id to the checkout below
     //if success return to success page and save temp order to actually db
 
-    // console.log(session);
     const response = await fetch("/api/checkout", {
       method: "POST",
       headers: {
@@ -45,7 +44,7 @@ const CartPayment = () => {
     const checkoutSession = await response.json();
 
     //save temporary stripe session id
-    const response1 = await fetch("/api/order/stripe_session", {
+    await fetch("/api/order/stripe_session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,13 +53,13 @@ const CartPayment = () => {
     });
 
     // Redirecting user/customer to Stripe Checkout
-    // const result: any = await stripe?.redirectToCheckout({
-    //   sessionId: checkoutSession.id,
-    // });
+    const result: any = await stripe?.redirectToCheckout({
+      sessionId: checkoutSession.id,
+    });
 
-    // if (result.error) {
-    //   alert(result?.error.message);
-    // }
+    if (result.error) {
+      alert(result?.error.message);
+    }
   };
 
   return (

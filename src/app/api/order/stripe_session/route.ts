@@ -4,7 +4,6 @@ import StripeSession from '@/models/StripeSession';
 
 import { getServerSession } from "next-auth";
 
-
 export async function POST(request: NextRequest) {
   //TODO only accept 5 request / min for blocking DDOS
   try {

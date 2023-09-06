@@ -13,6 +13,15 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { addUser, removeUser } from "@/app/store/nextSlice";
 
+import {
+  Popover,
+  PopoverHandler,
+  PopoverContent,
+  Button,
+  Avatar,
+  Typography,
+} from "@material-tailwind/react";
+
 const Header = () => {
   const router = useRouter();
   const dispatch = useDispatch();
@@ -23,6 +32,13 @@ const Header = () => {
 
   const { data: session } = useSession();
 
+  const [openPopover, setOpenPopover] = React.useState(false);
+ 
+  const triggers = {
+    onMouseEnter: () => setOpenPopover(true),
+    onMouseLeave: () => setOpenPopover(false),
+  };
+  
   useEffect(() => {
     // Error: Text content does not match server-rendered HTML.
     // Warning: Text content did not match. Server: "0" Client: "4"
@@ -50,6 +66,11 @@ const Header = () => {
 
   const signInHandler = () => {
     router.push('/login');
+  };
+
+  const handleSignOut = () => {
+    signOut();
+    dispatch(removeUser());
   };
 
   return (
@@ -98,17 +119,36 @@ const Header = () => {
         </div>
         {/* signin */}
         {userInfo ? (
-          <div className="flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] gap-1">
-            <img
-              src={userInfo.image}
-              alt="userImage"
-              className="w-8 h-8 rounded-full object-cover"
-            />
-            <div className="text-xs text-gray-100 flex flex-col justify-between">
-              <p className="text-white font-bold">{userInfo.name}</p>
-              <p>{userInfo.email}</p>
-            </div>
-          </div>
+          <Popover open={openPopover} handler={setOpenPopover}>
+            <PopoverHandler {...triggers}>
+              <div className="flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] gap-1">
+                <img
+                  src={userInfo.image}
+                  alt="userImage"
+                  className="w-8 h-8 rounded-full object-cover"
+                />
+                <div className="text-xs text-gray-100 flex flex-col justify-between">
+                  <p className="text-white font-bold">{userInfo.name}</p>
+                  <p>{userInfo.email}</p>
+                </div>
+              </div>
+            </PopoverHandler>
+            <PopoverContent {...triggers} className="z-50 w-[13rem] max-w-[25rem]">
+              <div className="flex-column items-center gap-8 border-blue-gray-50">
+                <Link href="/order/my-order">Your Orders</Link>
+                <div
+                  class="mt-2"
+                >
+                  <button
+                    onClick={handleSignOut}
+                    className=""
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
         ) : (
           <div
             onClick={() => signIn()}

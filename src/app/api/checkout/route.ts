@@ -3,15 +3,17 @@ import { NextResponse } from 'next/server';
 import { type NextRequest } from 'next/server'
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+import { getToken } from "next-auth/jwt"
 
 type ResponseData = {
   message: string
 }
 
-export async function GET(request: NextRequest) {
+export async function GET(req: NextRequest) {
   try{
-    console.log(request);
-  return NextResponse.json({ message: 'Success' })
+    const csrfToken = await getToken({ req })
+    // console.log(csrfToken);
+    return NextResponse.json({ message: 'Success' })
   } catch(e) {
     console.log(e);
     return NextResponse.json({ message: 'Internal server error' })

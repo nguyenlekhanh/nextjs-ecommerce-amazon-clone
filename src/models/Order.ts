@@ -1,28 +1,29 @@
 import mongoose from 'mongoose';
 
-const ProductSchema = new mongoose.Schema({
-  title: { type: String },
-  isNew: { type: Boolean },
-  oldPrice: { type: mongoose.Types.Decimal128 },
-  price: { type: mongoose.Types.Decimal128 },
-  description: { type: String },
-  category: { type: String },
-  image: { type: String },
-  brand: { type: String },
+const OrderSchema = new mongoose.Schema({
+  stripe_session_id: { type: String },
+  amount_discount: { type: mongoose.Types.Decimal128 },
+  amount_subtotal: { type: mongoose.Types.Decimal128 },
+  amount_tax: { type: mongoose.Types.Decimal128 },
+  amount_total: { type: mongoose.Types.Decimal128 },
+  currency: { type: String },
+  user_email: { type: String, require: true},
   createdAt: {
       type: Date,
       default: new Date(),
   },
 });
 
-ProductSchema.set('toJSON', {
+OrderSchema.set('toJSON', {
   transform: (doc, ret) => {
     ret._id = ret._id.toString();
-    ret.price = ret.price.toString();
-    ret.oldPrice = ret.oldPrice.toString();
+    ret.amount_discount = ret.amount_discount.toString();
+    ret.amount_subtotal = ret.amount_subtotal.toString();
+    ret.amount_tax = ret.amount_tax.toString();
+    ret.amount_total = ret.amount_total.toString();
     return ret;
   },
 });
 
 
-module.exports = mongoose.models.Product ?? mongoose.model('Product', ProductSchema)
+module.exports = mongoose.models.Order ?? mongoose.model('Order', OrderSchema)

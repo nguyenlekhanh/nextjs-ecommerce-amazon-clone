@@ -10,7 +10,10 @@ const SuccessPage = () => {
   const dispatch = useDispatch();
 
   const {data :session} = useSession();
-  console.log(session);
+
+  if(session) {
+    dispatch(resetCart());
+  }
   
   return (
     <div className="flex flex-col gap-2 items-center justify-center py-20">
