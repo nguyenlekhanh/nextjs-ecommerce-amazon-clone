@@ -5,6 +5,7 @@ import prisma from '@/libs/prismadb'
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcrypt from 'bcrypt'
 import { signJwtAccessToken } from "@/libs/jwt";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET as string;
 
@@ -19,6 +20,51 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
       authorization: { params: { access_type: "offline", prompt: "consent" } },
     }),
+    CredentialsProvider({
+        name: "credentials",
+        credentials: {
+            email: { label: "Email", type: "text", placeholder: "email" },
+            password: { label: "Password", type: "password" },
+            username: { label: "Username", type: "text", placeholder: "user name" },
+        },
+        async authorize(credentials: Record<"email" | "password" | "username", string> | undefined) {
+          
+            // check to see if email and password is there
+            if(!credentials || !credentials.email || !credentials.password) {
+                throw new Error('Please enter an email and password')
+            }
+
+            // check to see if user exists
+            let user = await prisma.user.findUnique({
+                where: {
+                    email: credentials.email
+                }
+            });
+
+            // if no user was found 
+            if (!user || !user?.hashedPassword) {
+                throw new Error('No user found')
+            }
+
+            // check to see if password matches
+            const passwordMatch = await bcrypt.compare(credentials.password, user.hashedPassword)
+
+            // if password does not match
+            if (!passwordMatch) {
+                throw new Error('Incorrect password')
+            }
+
+            
+            const { hashedPassword, ...userWithoutPass } = user;
+            const accessToken = signJwtAccessToken(userWithoutPass);
+            user = {
+                ...userWithoutPass,
+                access_token: accessToken,
+            };
+            
+            return user;
+        },
+    }),  
   ],
   callbacks: {
     async jwt({ token, user, account }) {

@@ -33,11 +33,18 @@ const Header = () => {
   const { data: session } = useSession();
 
   const [openPopover, setOpenPopover] = React.useState(false);
+  const [openLogin, setOpenLogin] = React.useState(false);
  
   const triggers = {
     onMouseEnter: () => setOpenPopover(true),
     onMouseLeave: () => setOpenPopover(false),
   };
+
+  const triggersLogin = {
+    onMouseEnter: () => setOpenLogin(true),
+    onMouseLeave: () => setOpenLogin(false),
+  };
+  
   
   useEffect(() => {
     // Error: Text content does not match server-rendered HTML.
@@ -151,16 +158,31 @@ const Header = () => {
           </Popover>
         ) : (
           <div
-            onClick={() => signIn()}
             className="text-xs text-gray-100 flex flex-col justify-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%]"
           >
-            <p>Hello, sign in</p>
-            <p className="text-white font-bold flex items-center">
-              Account & Lists{" "}
-              <span>
-                <BiCaretDown />
-              </span>
-            </p>
+            <Popover open={openLogin} handler={setOpenLogin}>
+              <PopoverHandler {...triggersLogin}>
+                <div>
+                  <p>Hello, sign in</p>
+                  <p className="text-white font-bold flex items-center">
+                    Account & Lists{" "}
+                    <span>
+                      <BiCaretDown />
+                    </span>
+                  </p>
+                </div>
+              </PopoverHandler>
+              <PopoverContent {...triggersLogin} className="z-50 w-[12rem] max-w-[25rem]">
+                <div className="flex-column items-center gap-8 border-blue-gray-50">
+                  <Link href="/login">Sign In</Link>
+                  <div
+                    class="mt-2"
+                  >
+                    <Link href="/register">Register</Link>
+                  </div>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         )}
         {/* favorite */}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import FormattedPrice from "@/components/FormattedPrice";
 import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
+import { RotatingLines } from 'react-loader-spinner'
 
 const CartPayment = () => {
   const { productData, userInfo } = useSelector(
@@ -11,6 +12,7 @@ const CartPayment = () => {
   );
 
   const [totalAmount, setTotalAmount] = useState(0);
+  const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
 
   useEffect(() => {
     let amt = 0;
@@ -30,7 +32,7 @@ const CartPayment = () => {
 
   const handleCheckout = async () => {
     const stripe = await stripePromise;
-
+    setIsLoadingCheckout(true);
     //save temporary order to database and give the id to the checkout below
     //if success return to success page and save temp order to actually db
 
@@ -81,12 +83,28 @@ const CartPayment = () => {
       </p>
       {userInfo ? (
         <div className="flex flex-col items-center">
-          <button
-            onClick={handleCheckout}
-            className="w-full h-10 text-sm font-semibold bg-amazon_blue text-white rounded-lg hover:bg-amazon_yellow hover:text-black duration-300"
+          <div
+            className="w-full flex flex-row items-center justify-center h-10 text-sm font-semibold bg-amazon_blue text-white rounded-lg hover:bg-amazon_yellow hover:text-black duration-300"
           >
-            Proceed to Buy
-          </button>
+            <button
+              onClick={handleCheckout}
+              className=""
+              disabled={isLoadingCheckout ? true : false}
+            >
+              Proceed to Buy &nbsp;
+            </button>
+            {isLoadingCheckout && (
+              <div className="text-left">
+                <RotatingLines
+                  strokeColor="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  width="30"
+                  visible={true}
+                />
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <div className="flex flex-col items-center">

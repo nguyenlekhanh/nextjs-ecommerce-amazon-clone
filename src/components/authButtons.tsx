@@ -14,7 +14,7 @@ export function GoogleSignInButton() {
   const handleClick = async () => {
     signIn("google", {
       redirect: false,
-      callbackUrl: "/check-google-user",
+      callbackUrl: "/",
     });
   }
 

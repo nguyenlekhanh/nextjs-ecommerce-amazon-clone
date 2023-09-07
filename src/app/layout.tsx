@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Footer from '@/components/Footer'
 import HeaderContainer from '@/components/header/HeaderContainer'
 import AuthProviders from '@/components/AuthProviders'
+import ToasterContainer from '@/components/ToasterContainer'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-bodyFont">
         <AuthProviders>
+          <ToasterContainer />
           <HeaderContainer />
           {children}
           <Footer />
