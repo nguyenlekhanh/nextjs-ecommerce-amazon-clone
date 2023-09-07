@@ -49,6 +49,7 @@ const ProductItem = ({productParam} : itemProps) => {
                   dispatch(
                     addToCart({
                       _id: product._id,
+                      id: product.id,
                       brand: product.brand,
                       category: product.category,
                       description: product.description,
@@ -70,6 +71,7 @@ const ProductItem = ({productParam} : itemProps) => {
                   dispatch(
                     addToFavorite({
                       _id: product._id,
+                      id: product.id,
                       brand: product.brand,
                       category: product.category,
                       description: product.description,
@@ -117,6 +119,7 @@ const ProductItem = ({productParam} : itemProps) => {
                   dispatch(
                     addToCart({
                       _id: product._id,
+                      id: product.id,
                       brand: product.brand,
                       category: product.category,
                       description: product.description,

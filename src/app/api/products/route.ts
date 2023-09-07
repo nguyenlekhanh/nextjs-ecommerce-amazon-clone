@@ -14,15 +14,15 @@ export async function GET(req: Request) {
 
   try {
     let data = await prisma.products.findMany();
-    
-    const dataRemoveDecimal128 = removeDecimal128(data);
+    console.log(await data);
+    // const dataRemoveDecimal128 = removeDecimal128(data);
 
     // //TODO make only 5 request / minutes for not making DDOS
     // const data = await Product.find({});
     //console.log(data);
-    return NextResponse.json(dataRemoveDecimal128);
+    return NextResponse.json(data);
   } catch (err) {
     console.log(err);
-    return NextResponse.json({ message: 'Internal server error' })
+    return NextResponse.json({ message: err })
   }
 }

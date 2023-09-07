@@ -26,7 +26,7 @@ type OrderItem = {
   amount_tax: number,
   amount_total: number,
   createdAt: Date,
-  order_line_item: [OrderLineItemProps]
+  orderLineItems: [OrderLineItemProps]
 }
 
 type ItemProps = {
@@ -37,9 +37,9 @@ const OrderContainer = ({orders} : ItemProps) => {
   const [productData, setProductData] = useState<any>();
   const parseOrders:OrderItem[] = JSON.parse(orders);
   let orderLineItems: Array<OrderLineItemProps> = [];
-
+  // console.log(orders);
   parseOrders.map(orderLineItem => {
-    orderLineItem.order_line_item.map((item) => {
+    orderLineItem.orderLineItems.map((item) => {
       orderLineItems.push(item);
     })
   });
@@ -69,16 +69,16 @@ const OrderContainer = ({orders} : ItemProps) => {
               </div>
               <div className="pt-2 flex flex-col gap-2"></div>
               {
-                productData.map((orderLineItem:OrderItem) => (
+                productData.map((orderLineItems:OrderItem) => (
                   <>
                     <div className="mt-5">
                       <Moment format="MMM D, YYYY">
-                        {orderLineItem.createdAt}
+                        {orderLineItems.createdAt}
                       </Moment>
                       &nbsp;order
                     </div>
                     {
-                      orderLineItem.order_line_item.map((item:OrderLineItemProps, index) => (
+                      orderLineItems.orderLineItems.map((item:OrderLineItemProps, index) => (
                         <>
                           <div key={index} className="mb-5">
                             <OrderLineItem item={item} />

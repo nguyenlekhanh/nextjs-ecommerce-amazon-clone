@@ -12,6 +12,7 @@ const Products = ({ productData }: ItemProps) => {
     <div className="w-full px-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
       {productData.map(({
           _id,
+          id,
           title,
           brand,
           category,
@@ -21,11 +22,12 @@ const Products = ({ productData }: ItemProps) => {
           oldPrice,
           price,
         }: ProductProps) => {
-          const uniqueKey = _id;
+          const uniqueKey = id;
         return (
           <ProductItem 
             key={uniqueKey}
             _id={_id}
+            id={id}
             title={title}
             brand={brand}
             category={category}

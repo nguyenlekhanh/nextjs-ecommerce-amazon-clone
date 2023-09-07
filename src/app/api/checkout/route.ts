@@ -4,7 +4,7 @@ import { type NextRequest } from 'next/server'
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 // import { getToken } from "next-auth/jwt"
-// import prisma from '@/libs/prismadb'
+import prisma from '@/libs/prismadb'
 
 type ResponseData = {
   message: string
@@ -261,14 +261,14 @@ export async function GET(req: NextRequest) {
     //   const result = await prisma.products.create({ data: {
     //     title: item.title,
     //     isNew: item.isNew,
-    //     oldPrice: item.oldPrice,
-    //     price: item.price,
+    //     oldPrice: item.oldPrice.toString(),
+    //     price: item.price.toString(),
     //     description: item.description,
     //     category: item.category,
     //     image: item.image,
     //     brand: item.brand
     //   }});
-    // })
+    // });
 
     return NextResponse.json({ message: 'Success' })
   } catch(e) {

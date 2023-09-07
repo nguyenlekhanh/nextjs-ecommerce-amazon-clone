@@ -18,6 +18,7 @@ interface Item {
   price: number;
   title: string;
   _id: number;
+  id: number;
   quantity: number;
 }
 interface cartProductsProps {
@@ -53,6 +54,7 @@ const CartProduct = ({ item }: cartProductsProps) => {
                   dispatch(
                     increaseQuantity({
                       _id: item._id,
+                      id: item.id,
                       brand: item.brand,
                       category: item.category,
                       description: item.description,
@@ -75,6 +77,7 @@ const CartProduct = ({ item }: cartProductsProps) => {
                   dispatch(
                     decreaseQuantity({
                       _id: item._id,
+                      id: item.id,
                       brand: item.brand,
                       category: item.category,
                       description: item.description,

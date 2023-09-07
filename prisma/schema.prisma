@@ -70,8 +70,8 @@ model Products {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
   title          String
   isNew          Boolean
-  oldPrice       Float
-  price          Float
+  oldPrice       String
+  price          String
   description    String
   category       String
   image          String
@@ -79,3 +79,41 @@ model Products {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 }
+
+model StripeSessions {
+  id                          String    @id @default(auto()) @map("_id") @db.ObjectId
+  email                       String
+  stripe_session_id           String
+  createdAt                   DateTime  @default(now())
+}
+
+model Orders {
+  id                          String    @id @default(auto()) @map("_id") @db.ObjectId
+  stripe_session_id           String
+  amount_discount             String?
+  amount_subtotal             String?
+  amount_tax                  String?
+  amount_total                String?
+  currency                    String?
+  user_email                  String
+  orderLineItems              OrderLineItems[] @relation("orderLineItems")
+  createdAt                   DateTime  @default(now())
+}
+
+model OrderLineItems {
+  id                          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title                       String?
+  quantity                    Int?
+  unit_amount                 String?
+  amount_discount             String?
+  amount_subtotal             String?
+  amount_tax                  String?
+  amount_total                String?
+  currency                    String?
+  image                       String?
+  description                 String?
+  order_id                    String  @db.ObjectId
+  order Orders @relation("orderLineItems", fields: [order_id], references: [id], onDelete: Cascade)
+  createdAt                   DateTime  @default(now())
+}
+

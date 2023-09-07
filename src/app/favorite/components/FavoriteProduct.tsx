@@ -7,13 +7,14 @@ import { addToCart, deleteFavorite } from "@/app/store/nextSlice";
 import FormattedPrice from "@/components/FormattedPrice";
 interface Item {
   _id: number;
+  id: number;
   brand: string;
   category: string;
   description: string;
   image: string;
   isNew: boolean;
-  oldPrice: number;
-  price: number;
+  oldPrice: string;
+  price: string;
   title: string;
   quantity: number;
 }
@@ -41,6 +42,7 @@ const FavoriteProduct = ({ item }: cartProductProps) => {
               dispatch(
                 addToCart({
                   _id: item._id,
+                  id: item.id,
                   brand: item.brand,
                   category: item.category,
                   description: item.description,
@@ -51,7 +53,7 @@ const FavoriteProduct = ({ item }: cartProductProps) => {
                   title: item.title,
                   quantity: 1,
                 })
-              ) && dispatch(deleteFavorite(item._id));
+              ) && dispatch(deleteFavorite(item.id));
             }}
             className="w-44 h-10 font-medium bg-amazon_blue text-white rounded-md hover:bg-amazon_yellow duration-300 hover:text-black mt-2"
           >

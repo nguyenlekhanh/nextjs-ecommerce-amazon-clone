@@ -9,6 +9,7 @@ import { addToCart, addToFavorite } from '@/app/store/nextSlice';
 
 const ProductItem = ({
   _id,
+  id,
   title,
   brand,
   category,
@@ -19,6 +20,7 @@ const ProductItem = ({
   price,
 }: ProductProps) => {
   const dispatch = useDispatch();
+  _id=id;
   return (
     <div
       key={_id}
@@ -30,6 +32,7 @@ const ProductItem = ({
             pathname: `/product/${_id}`,
             query: {
               _id: _id,
+              id: id,
               brand: brand,
               category: category,
               description: description,
@@ -58,6 +61,7 @@ const ProductItem = ({
               dispatch(
                 addToCart({
                   _id: _id,
+                  id: id,
                   brand: brand,
                   category: category,
                   description: description,
@@ -81,6 +85,7 @@ const ProductItem = ({
               dispatch(
                 addToFavorite({
                   _id: _id,
+                  id: id,
                   brand: brand,
                   category: category,
                   description: description,
@@ -101,6 +106,7 @@ const ProductItem = ({
         {isNew && (
           <p className="absolute top-0 right-0 text-amazon_blue font-medium text-xs tracking-wide animate-bounce">
             !save <FormattedPrice amount={oldPrice - price} />
+            {/* !save ${oldPrice - price} */}
           </p>
         )}
       </div>
@@ -124,6 +130,7 @@ const ProductItem = ({
             dispatch(
               addToCart({
                 _id: _id,
+                id: id,
                 brand: brand,
                 category: category,
                 description: description,

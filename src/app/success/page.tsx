@@ -4,6 +4,7 @@ import React from 'react'
 import SuccessPage from './components/SuccessPage'
 import { STRIPE_STATUS_COMPLETE } from '@/config/constants';
 import { createOrder, deleteOrder, findOrderByStripeSessionId, saveOrderLineItem, updateOrderById } from '@/models/OrderQuery';
+import { numberToCurrency } from '@/libs/numberLib';
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 type lineItemProps = {
@@ -36,16 +37,17 @@ const page = async ({
         let orderlineitem: Array<string | number> = [];
 
         await Promise.all(lineItems?.data.map( async (product: any) => {
+          //console.log(product);
           const orderLineItem = {
             title: product.price.product.name,
             description: product.price.product.description,
             quantity: product.quantity,
             image: product.price.product?.images ? product.price.product.images[0] : '',
-            unit_amount: product.price.unit_amount,
-            amount_discount: product.amount_discount,
-            amount_subtotal: product.amount_subtotal,
-            amount_tax: product.amount_tax,
-            amount_total: product.amount_total,
+            unit_amount: numberToCurrency(product.price.unit_amount).toString(),
+            amount_discount: numberToCurrency(product.amount_discount).toString(),
+            amount_subtotal: numberToCurrency(product.amount_subtotal).toString(),
+            amount_tax: numberToCurrency(product.amount_tax).toString(),
+            amount_total: numberToCurrency(product.amount_total).toString(),
             currency: product.currency,
             order_id: orderId
           };
@@ -58,12 +60,15 @@ const page = async ({
           amount_total += product.amount_total;
         }));
 
+        
         const updateOrderData = {
-          amount_discount,
-          amount_subtotal,
-          amount_tax,
-          amount_total,
-          orderlineitem
+          amount_discount: numberToCurrency(amount_discount).toString(),
+          amount_subtotal: numberToCurrency(amount_subtotal).toString(),
+          amount_tax: numberToCurrency(amount_tax).toString(),
+          amount_total: numberToCurrency(amount_total).toString(),
+          orderLineItems: {         //if connect mongodb directly only write orderLineItem
+            connect: orderlineitem,
+          },
         };
 
         const updateOrder = await updateOrderById(orderId, updateOrderData);
@@ -76,8 +81,8 @@ const page = async ({
 
         if(!orderWithStripSessionId) {
           const order = await createOrder(stripe_session_id_param, authSession.user.email);
-          // console.log(order);
-          const orderId = order._id;
+
+          const orderId = order.id;
 
           //save temp order to order
           stripe.checkout.sessions.listLineItems(

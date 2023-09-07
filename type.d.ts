@@ -4,10 +4,11 @@ type ProductProps = {
   description: string;
   image: string;
   isNew: boolean;
-  oldPrice: number;
-  price: number;
+  oldPrice: string;
+  price: string;
   title: string;
   _id: number;
+  id: number;
 }
 
 type PriceProps = {
@@ -20,10 +21,11 @@ type StoreProduct = {
   description: string;
   image: string;
   isNew: boolean;
-  oldPrice: number;
-  price: number;
+  oldPrice: string;
+  price: string;
   title: string;
   _id: number;
+  id: number;
   quantity: number;
 }
 

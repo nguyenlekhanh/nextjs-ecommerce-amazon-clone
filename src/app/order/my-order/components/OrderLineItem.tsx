@@ -39,7 +39,7 @@ const OrderLineItem = ({ item }: cartProductsProps) => {
         />
         <div className="flex items-center px-2 gap-4">
           <div className="flex flex-col gap-1">
-            <p className="text-lg font-semibold text-amazon_blue">{item.title}{item.image}</p>
+            <p className="text-lg font-semibold text-amazon_blue">{item.title}</p>
             <p className="text-sm text-gray-600">{item.description}</p>
             <p className="text-sm text-gray-600">
               Unit Price{" "}

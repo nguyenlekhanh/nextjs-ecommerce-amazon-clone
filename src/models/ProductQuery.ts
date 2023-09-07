@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Product from '@/models/Product';
 import dbConnect from '@/libs/dbConnect';
+import prisma from '@/libs/prismadb'
 
 const getProductById = async (_id: string) => {
   //if we did not connect, it will return error below
@@ -10,10 +11,22 @@ const getProductById = async (_id: string) => {
   let product = null;
 
   if(mongoose.Types.ObjectId.isValid(_id)) {
-    product = await Product.findOne({ _id });
-  }
+    // product = await Product.findOne({ _id });
+    // product = await prisma.products.findFirst({where: {id:_id}});
+    // console.log(product);
 
-  return product.toJSON();
+    product = await prisma.products.findFirst({
+      where: {id:_id}
+    });
+  
+    if(product) {
+      return product;  
+    } else {
+      return null;
+    }
+
+  }
+  // return product.toJSON();
 }
 
 
