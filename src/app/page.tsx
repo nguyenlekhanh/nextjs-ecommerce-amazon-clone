@@ -16,10 +16,14 @@ async function getData() {
  
 
 export default async function Home() {
-  const productData: Promise<ProductProps[]> = getProductResults();
-  // console.log(productData);
-  const data = await productData;
-  
+  let data = null;
+
+  if(process.env.GET_DATA && process.env.GET_DATA == 1) {
+    const productData: Promise<ProductProps[]> = getProductResults();
+    //console.log(productData);
+    data = await productData;
+  }
+
   return (
     <main className="py-10 bg-gray-300">
       <HomeClientPage productData={data}/>

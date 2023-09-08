@@ -4,13 +4,13 @@ import React from 'react'
 import ProductItem from './ProductItem';
 
 type ItemProps = {
-  productData: ProductProps[]
+  productData: ProductProps[] | null
 }
 
 const Products = ({ productData }: ItemProps) => {
   return (
     <div className="w-full px-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-      {productData.map(({
+      {productData && productData.map(({
           _id,
           id,
           title,

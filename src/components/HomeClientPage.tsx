@@ -9,7 +9,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 type ItemProps = {
-  productData: ProductProps[]
+  productData: ProductProps[] | null
 }
 
 const HomeClientPage = ({productData} : ItemProps) => {
