@@ -76,7 +76,9 @@ const Header = () => {
   };
 
   const handleSignOut = () => {
-    signOut();
+    signOut({
+      callbackUrl: "/"
+    });
     dispatch(removeUser());
   };
 

@@ -46,7 +46,7 @@ const OrderContainer = ({orders} : ItemProps) => {
 
   useEffect(() => {
     setProductData(parseOrders);
-  }, [])
+  }, [parseOrders])
 
 
   

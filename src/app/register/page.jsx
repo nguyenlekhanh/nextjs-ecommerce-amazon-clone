@@ -7,7 +7,7 @@ import Link from "next/link"
 import { RotatingLines } from 'react-loader-spinner'
 
 // export default function Register() {
-const Register = async () => {
+const Register = () => {
     const [isLoadingRegister, setIsLoadingRegister] = useState(false);
     const [data, setData] = useState({
          name: '',

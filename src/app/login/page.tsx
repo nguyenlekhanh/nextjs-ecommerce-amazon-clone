@@ -10,7 +10,7 @@ import { RotatingLines } from 'react-loader-spinner'
 
 
 // export default function Login(props: Props) {
-const Login = async () => {
+const Login = () => {
   const [error, setError] = useState<string | null>(null);
   const session = useSession();
   const router = useRouter();
