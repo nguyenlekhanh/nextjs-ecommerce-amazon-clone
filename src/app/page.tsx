@@ -1,4 +1,5 @@
 import HomeClientPage from '@/components/HomeClientPage';
+import { GET_DATA } from '@/config/constants';
 import getProductResults from '@/libs/getProductResults';
 
 async function getData() {
@@ -18,7 +19,7 @@ async function getData() {
 export default async function Home() {
   let data = null;
 
-  if(process.env.GET_DATA && process.env.GET_DATA == 1) {
+  if(GET_DATA && Number(GET_DATA)==1) {
     const productData: Promise<ProductProps[]> = getProductResults();
     //console.log(productData);
     data = await productData;
