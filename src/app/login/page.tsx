@@ -17,7 +17,8 @@ type Props = {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default function Login(props: Props) {
+// export default function Login(props: Props) {
+const Login = async (props: Props) => {
   const [error, setError] = useState<string | null>(null);
   const session = useSession();
   const router = useRouter();
@@ -161,3 +162,5 @@ export default function Login(props: Props) {
     </>
   );
 }
+
+export default Login
