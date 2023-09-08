@@ -12,12 +12,12 @@ interface CredentialsFormProps {
   csrfToken?: string;
 }
 
-interface IProps {
+type Props = {
   csrfToken?: string;
   searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default function Login(props: IProps) {
+export default function Login(props: Props) {
   const [error, setError] = useState<string | null>(null);
   const session = useSession();
   const router = useRouter();
