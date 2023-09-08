@@ -72,7 +72,13 @@ const handler = NextAuth({
       if (account) {
         if (account.provider === "google") {
           // If the access token has expired, try to refresh it
-          if (Date.now() >= token.expires_at * 1000) {
+          let expiresAt:number = 1;
+          try{
+            expiresAt = account.expires_at as number;
+          } catch(err) {
+
+          }
+          if (token?.expires_at && Date.now() >= expiresAt * 1000) {
             try {
               // https://accounts.google.com/.well-known/openid-configuration
               // We need the `token_endpoint`.
@@ -106,7 +112,7 @@ const handler = NextAuth({
           } else {
             // Save the access token and refresh token in the JWT on the initial login
             token.access_token = account.access_token;
-            token.expires_at = Math.floor(Date.now() / 1000 + account.expires_at);
+            token.expires_at = Math.floor(Date.now() / 1000 + expiresAt);
             token.refresh_token = account.refresh_token;
           }
         }

@@ -1,7 +1,7 @@
 
 import { NextResponse } from 'next/server';
 import dbConnect from '@/libs/dbConnect';
-import Product from '@/models/Product';
+// import Product from '@/models/Product';
 import { removeDecimal128 } from '@/libs/dataLib';
 import prisma from '@/libs/prismadb'
 

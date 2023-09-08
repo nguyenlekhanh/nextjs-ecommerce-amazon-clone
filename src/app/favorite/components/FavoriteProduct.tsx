@@ -34,7 +34,8 @@ const FavoriteProduct = ({ item }: cartProductProps) => {
           <p className="text-sm text-gray-600">
             Unit price:{" "}
             <span className="font-semibold text-amazon_blue">
-              <FormattedPrice amount={item.price} />
+              {/* <FormattedPrice amount={item.price} /> */}
+              ${item.price}
             </span>
           </p>
           <button
@@ -61,7 +62,8 @@ const FavoriteProduct = ({ item }: cartProductProps) => {
           </button>
         </div>
         <div className="text-lg font-semibold text-amazon_blue">
-          <FormattedPrice amount={item.price * item.quantity} />
+          {/* <FormattedPrice amount={item.price * item.quantity} /> */}
+          ${Number(item.price) * item.quantity}
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/libs/dbConnect";
-import StripeSession from '@/models/StripeSession';
+// import StripeSession from '@/models/StripeSession';
 import prisma from '@/libs/prismadb'
 import { getServerSession } from "next-auth";
 

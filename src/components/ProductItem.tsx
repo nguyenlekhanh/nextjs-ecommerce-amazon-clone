@@ -105,8 +105,8 @@ const ProductItem = ({
         </div>
         {isNew && (
           <p className="absolute top-0 right-0 text-amazon_blue font-medium text-xs tracking-wide animate-bounce">
-            !save <FormattedPrice amount={oldPrice - price} />
-            {/* !save ${oldPrice - price} */}
+            {/* !save <FormattedPrice amount={oldPrice - price} /> */}
+            !save ${Number(oldPrice) - Number(price)}
           </p>
         )}
       </div>
@@ -116,10 +116,12 @@ const ProductItem = ({
         <p className="text-base font-medium">{title}</p>
         <p className="flex items-center gap-2">
           <span className="text-sm line-through">
-            <FormattedPrice amount={oldPrice} />
+            {/* <FormattedPrice amount={oldPrice} /> */}
+            ${oldPrice}
           </span>
           <span className="text-amazon_blue font-semibold">
-            <FormattedPrice amount={price} />
+            {/* <FormattedPrice amount={price} /> */}
+            ${price}
           </span>
         </p>
         <p className="text-xs text-gray-600 text-justify">

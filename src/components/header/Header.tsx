@@ -27,8 +27,8 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const {productData, favoriteData, userInfo} = useSelector((state:StateProps) => state.next);
-  const [productDataState, setProductDataState] = useState<ProductProps>();
-  const [favoriteDataState, setFavoriteDataState] = useState<ProductProps>();
+  const [productDataState, setProductDataState] = useState<ProductProps[]>();
+  const [favoriteDataState, setFavoriteDataState] = useState<ProductProps[]>();
 
   const { data: session } = useSession();
 
@@ -144,7 +144,7 @@ const Header = () => {
               <div className="flex-column items-center gap-8 border-blue-gray-50">
                 <Link href="/order/my-order">Your Orders</Link>
                 <div
-                  class="mt-2"
+                  className="mt-2"
                 >
                   <button
                     onClick={handleSignOut}
@@ -176,7 +176,7 @@ const Header = () => {
                 <div className="flex-column items-center gap-8 border-blue-gray-50">
                   <Link href="/login">Sign In</Link>
                   <div
-                    class="mt-2"
+                    className="mt-2"
                   >
                     <Link href="/register">Register</Link>
                   </div>

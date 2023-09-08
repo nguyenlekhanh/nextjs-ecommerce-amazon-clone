@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import Product from '@/models/Product';
+// import Product from '@/models/Product';
 import dbConnect from '@/libs/dbConnect';
 import prisma from '@/libs/prismadb'
 

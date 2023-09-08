@@ -287,7 +287,7 @@ export async function POST(request: NextRequest) {
       quantity: item.quantity,
       price_data: {
         currency: "usd",
-        unit_amount: item.price * 100,
+        unit_amount: Number(Number(item.price) * 100).toString(),
         product_data: {
           name: item.title,
           description: item.description,

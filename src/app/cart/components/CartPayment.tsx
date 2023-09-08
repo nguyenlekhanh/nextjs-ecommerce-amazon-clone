@@ -17,7 +17,7 @@ const CartPayment = () => {
   useEffect(() => {
     let amt = 0;
     productData.map((item: StoreProduct) => {
-      amt += item.price * item.quantity;
+      amt += Number(item.price) * item.quantity;
       return;
     });
     setTotalAmount(amt);

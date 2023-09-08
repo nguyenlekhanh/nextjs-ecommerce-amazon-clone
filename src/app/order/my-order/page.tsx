@@ -10,9 +10,9 @@ export const revalidate = 0;
 const MyOrder = async () => {
   const authSession = await getServerSession();
 
-  let orders;
+  let orders:string='';
   try{
-    if(authSession?.user.email) {
+    if(authSession && authSession.user && authSession?.user.email) {
       orders = await getOrderByEmail(authSession?.user.email);
       //orders[0].order_line_item = orders[0].order_line_item.flat();
       // console.log(orders[0].order_line_item.flat());

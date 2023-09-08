@@ -102,16 +102,19 @@ const ProductItem = ({productParam} : itemProps) => {
               <p className="text-base text-gray-600 flex items-center gap-1">
                 Price:
                 <span className="text-lg text-amazon_blue font-semibold">
-                  <FormattedPrice amount={product.price} />
+                  {/* <FormattedPrice amount={product.price} /> */}
+                  ${product.price}
                 </span>
                 <span className="ml-1 line-through">
-                  <FormattedPrice amount={product.oldPrice} />
+                  {/* <FormattedPrice amount={product.oldPrice} /> */}
+                  ${product.oldPrice}
                 </span>
               </p>
               <p className="text-sm text-gray-500 flex items-center gap-1">
                 Your saved:{" "}
                 <span>
-                  <FormattedPrice amount={product.oldPrice - product.price} />
+                  {/* <FormattedPrice amount={product.oldPrice - product.price} /> */}
+                  ${Number(product.oldPrice) - Number(product.price)}
                 </span>
               </p>
               <button

@@ -8,21 +8,8 @@ import { useDispatch } from "react-redux";
 import FormattedPrice from "@/components/FormattedPrice";
 import { increaseQuantity, decreaseQuantity, deleteProduct } from "@/app/store/nextSlice";
 
-interface Item {
-  brand: string;
-  category: string;
-  description: string;
-  image: string;
-  isNew: boolean;
-  oldPrice: number;
-  price: number;
-  title: string;
-  _id: number;
-  id: number;
-  quantity: number;
-}
 interface cartProductsProps {
-  item: Item;
+  item: StoreProduct;
 }
 
 const CartProduct = ({ item }: cartProductsProps) => {
@@ -44,7 +31,8 @@ const CartProduct = ({ item }: cartProductsProps) => {
           <p className="text-sm text-gray-600">
             Unit Price{" "}
             <span className="font-semibold text-amazon_blue">
-              <FormattedPrice amount={item.price} />
+              {/* <FormattedPrice amount={item.price} /> */}
+              ${item.price}
             </span>
           </p>
           <div className="flex items-center gap-6">
@@ -104,7 +92,8 @@ const CartProduct = ({ item }: cartProductsProps) => {
           </div>
         </div>
         <div className="text-lg font-semibold text-amazon_blue">
-          <FormattedPrice amount={item.price * item.quantity} />
+          {/* <FormattedPrice amount={item.price * item.quantity} /> */}
+          ${Number(item.price) * item.quantity}
         </div>
       </div>
     </div>
