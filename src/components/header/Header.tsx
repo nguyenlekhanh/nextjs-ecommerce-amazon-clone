@@ -131,11 +131,12 @@ const Header = () => {
           <Popover open={openPopover} handler={setOpenPopover}>
             <PopoverHandler {...triggers}>
               <div className="flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] gap-1">
-                <img
-                  src={userInfo.image}
-                  alt="userImage"
-                  className="w-8 h-8 rounded-full object-cover"
-                />
+                {userInfo.image && <img
+                    src={userInfo.image}
+                    alt="userImage"
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                }
                 <div className="text-xs text-gray-100 flex flex-col justify-between">
                   <p className="text-white font-bold">{userInfo.name}</p>
                   <p>{userInfo.email}</p>
