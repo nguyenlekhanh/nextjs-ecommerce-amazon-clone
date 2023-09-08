@@ -5,7 +5,7 @@ import FormattedPrice from './FormattedPrice'
 import { HiShoppingCart } from "react-icons/hi";
 import { FaHeart } from "react-icons/fa";
 import { useDispatch } from 'react-redux';
-import { addToCart, addToFavorite } from '@/app/store/nextSlice';
+import { addToCart, addToFavorite, setLoadingIcon } from '@/app/store/nextSlice';
 
 const ProductItem = ({
   _id,
@@ -21,6 +21,7 @@ const ProductItem = ({
 }: ProductProps) => {
   const dispatch = useDispatch();
   _id=id;
+
   return (
     <div
       key={_id}
@@ -28,6 +29,7 @@ const ProductItem = ({
     >
       <div className="w-full h-[260px] relative">
         <Link
+          onClick={() => {dispatch(setLoadingIcon(true))}}
           href={{
             pathname: `/product/${_id}`,
             query: {

@@ -14,9 +14,7 @@ const MyOrder = async () => {
   try{
     if(authSession && authSession.user && authSession?.user.email) {
       orders = await getOrderByEmail(authSession?.user.email);
-      //orders[0].order_line_item = orders[0].order_line_item.flat();
-      // console.log(orders[0].order_line_item.flat());
-      //console.log(orders);
+
     }
   } catch (e) {
     console.log(e);

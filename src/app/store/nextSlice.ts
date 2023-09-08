@@ -5,6 +5,7 @@ interface ProductsSliceState {
   favoriteData: StoreProduct[];
   allProducts: StoreProduct[];
   userInfo: any | string;
+  isLoading: boolean;
 }
 
 const initialState : ProductsSliceState= {
@@ -12,12 +13,16 @@ const initialState : ProductsSliceState= {
   favoriteData: [],
   allProducts: [],
   userInfo: null,
+  isLoading: false,
 }
 
 export const nextSlice = createSlice({
   name: 'next',
   initialState,
   reducers: {
+    setLoadingIcon: (state, action) => {
+      state.isLoading = action.payload;
+    },
     addToCart: (state, action:PayloadAction<StoreProduct>) => {
       const existingProduct = state.productData.find(
         (item: StoreProduct) => item.id === action.payload.id
@@ -83,6 +88,6 @@ export const nextSlice = createSlice({
 export const { 
   addToCart, addToFavorite, increaseQuantity, decreaseQuantity,
   deleteProduct, resetCart, addUser, removeUser, setAllProducts,
-  resetFavoriteData, deleteFavorite
+  resetFavoriteData, deleteFavorite, setLoadingIcon
 } = nextSlice.actions;
 export default nextSlice.reducer;

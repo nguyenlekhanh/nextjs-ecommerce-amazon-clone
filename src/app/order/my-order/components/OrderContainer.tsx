@@ -34,19 +34,19 @@ type ItemProps = {
 }
 
 const OrderContainer = ({orders} : ItemProps) => {
-  const [productData, setProductData] = useState<any>();
+  const [productData, setProductData] = useState<Array<OrderItem>>([]);
   const parseOrders:OrderItem[] = JSON.parse(orders);
-  let orderLineItems: Array<OrderLineItemProps> = [];
-  // console.log(orders);
-  parseOrders.map(orderLineItem => {
-    orderLineItem.orderLineItems.map((item) => {
-      orderLineItems.push(item);
-    })
-  });
+  // let orderLineItems: Array<OrderLineItemProps> = [];
+  // // console.log(orders);
+  // parseOrders.map(orderLineItem => {
+  //   orderLineItem.orderLineItems.map((item) => {
+  //     orderLineItems.push(item);
+  //   })
+  // });
 
   useEffect(() => {
     setProductData(parseOrders);
-  }, [parseOrders])
+  }, [productData.length])
 
 
   

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { addUser, removeUser } from "@/app/store/nextSlice";
+import { addUser, removeUser, setLoadingIcon } from "@/app/store/nextSlice";
 
 import {
   Popover,
@@ -26,7 +26,7 @@ const Header = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const {productData, favoriteData, userInfo} = useSelector((state:StateProps) => state.next);
+  const {productData, favoriteData, userInfo } = useSelector((state:StateProps) => state.next);
   const [productDataState, setProductDataState] = useState<ProductProps[]>();
   const [favoriteDataState, setFavoriteDataState] = useState<ProductProps[]>();
 
@@ -87,6 +87,7 @@ const Header = () => {
       <div className="h-full w-full mx-auto inline-flex items-center justify-between gap-1 mdl:gap-3 px-4">
         {/* logo */}
         <Link href="/"
+          onClick={() => {dispatch(setLoadingIcon(true))}}
           className="px-2 border border-transparent hover:border-white cursor-pointer duration-300 flex items-center justify-center h-[70%]"
         >
           <Image className="w-28 object-cover mt-1" src={logo} alt="logo" />
@@ -145,7 +146,11 @@ const Header = () => {
             </PopoverHandler>
             <PopoverContent {...triggers} className="z-50 w-[13rem] max-w-[25rem]">
               <div className="flex-column items-center gap-8 border-blue-gray-50">
-                <Link href="/order/my-order">Your Orders</Link>
+                <Link href="/order/my-order"
+                  onClick={() => {dispatch(setLoadingIcon(true))}}
+                >
+                  Your Orders
+                </Link>
                 <div
                   className="mt-2"
                 >
@@ -177,11 +182,19 @@ const Header = () => {
               </PopoverHandler>
               <PopoverContent {...triggersLogin} className="z-50 w-[12rem] max-w-[25rem]">
                 <div className="flex-column items-center gap-8 border-blue-gray-50">
-                  <Link href="/login">Sign In</Link>
+                  <Link href="/login"
+                    onClick={() => {dispatch(setLoadingIcon(true))}}
+                  >
+                    Sign In
+                  </Link>
                   <div
                     className="mt-2"
                   >
-                    <Link href="/register">Register</Link>
+                    <Link href="/register"
+                      onClick={() => {dispatch(setLoadingIcon(true))}}
+                    >
+                      Register
+                    </Link>
                   </div>
                 </div>
               </PopoverContent>
@@ -190,7 +203,7 @@ const Header = () => {
         )}
         {/* favorite */}
         <div
-          onClick={() => router.push('/favorite')}
+          onClick={() => {dispatch(setLoadingIcon(true));router.push('/favorite')}}
           className="text-gray-100 flex flex-col justify-center px-2
               border border-transparent hover:border-white cursor-pointer duration-300
               h-[70%] relative"
@@ -208,6 +221,7 @@ const Header = () => {
               flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300
               h-[70%] relative"
           href="/cart"
+          onClick={() => {dispatch(setLoadingIcon(true))}}
         >
           <Image src={cartIcon} alt="cart" 
             className="w-auto object-cover h-8"
