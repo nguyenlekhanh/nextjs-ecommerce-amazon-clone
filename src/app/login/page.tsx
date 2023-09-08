@@ -8,17 +8,9 @@ import Link from "next/link";
 import { GoogleSignInButton } from "@/components/authButtons";
 import { RotatingLines } from 'react-loader-spinner'
 
-interface CredentialsFormProps {
-  csrfToken?: string;
-}
-
-type Props = {
-  csrfToken?: string;
-  searchParams?: { [key: string]: string | string[] | undefined };
-}
 
 // export default function Login(props: Props) {
-const Login = async (props: Props) => {
+const Login = async () => {
   const [error, setError] = useState<string | null>(null);
   const session = useSession();
   const router = useRouter();
@@ -68,7 +60,7 @@ const Login = async (props: Props) => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          {props.searchParams?.message && <p className="text-red-700 bg-red-100 py-2 px-5 rounded-md">{props.searchParams?.message}</p>}
+          {/* {props.searchParams?.message && <p className="text-red-700 bg-red-100 py-2 px-5 rounded-md">{props.searchParams?.message}</p>} */}
           <form className="space-y-6" onSubmit={loginUser}>
             <div>
               <label
